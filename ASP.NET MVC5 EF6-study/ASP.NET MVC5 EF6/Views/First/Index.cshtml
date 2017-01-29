@@ -1,0 +1,14 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div><b>womengs我们大家</b></div>
+
+@{ 
+    foreach (string slak in ViewBag.slaks)
+    {
+        <p>@slak</p>
+
+    }
+
+}

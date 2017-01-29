@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script src="~/Content/Easyui/jquery.min.js"></script>
+    <script src="~/Content/Easyui/jquery.easyui.min.js"></script>
+    <script src="~/Content/Easyui/easyui-lang-zh_CN.js"></script>
+    <link href="~/Content/Easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/EasyUI/themes/icon.css" rel="stylesheet" />
+</head>
+<body class="easyui-layout">
+
+    <script src="~/Scripts/Common/UserManager.js"></script>
+
+    <table id="dg" class="easyui-datagrid" style="width:700px;height:650px"
+           data-options="rownumbers:true,singleSelect:true,
+           url:'/account/LoadUser',
+           method:'get',
+           toolbar:'#tb',           
+		    autoRowHeight:false,
+		    pagination:true,	
+           footer:'#ft',
+           	   pageSize:5,
+           pageList:[5,20,50]           
+           ">
+
+
+        <thead>
+            <tr>
+                <th data-options="field:'ID',width:80">用户id</th>
+                <th data-options="field:'Name',width:100">用户名</th>
+                <th data-options="field:'Pwd',width:80,align:'right'">密码</th>
+                <th data-options="field:'AddTime',width:180,align:'right'">添加时间</th>
+                <th data-options="field:'attr1',width:240">Attribute</th>
+                <th data-options="field:'status',width:60,align:'center'">Status</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="tb" style="padding:2px 5px;">
+        用户名: <input type="text" id="name" style="width:110px">
+        密 码: <input type="text" id="pwd" style="width:110px">
+        技 术:
+        <select id="tec" class="easyui-combobox" panelHeight="auto" style="width:100px">
+            <option value="java">Java</option>
+            <option value="c">C</option>
+            <option value="basic">Basic</option>
+            <option value="perl">Perl</option>
+            <option value="python">Python</option>
+        </select>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="AddUser();">添加</a>
+    </div>
+    <div id="ft" style="padding:2px 5px;">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true"></a>
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Demo</title>
+    <script src="Scripts/ExtJS/adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="Scripts/ExtJS/ext-all-debug.js" type="text/javascript"></script>
+    <script src="Scripts/ExtJS/Locale/ext-lang-zh_CN.js" type="text/javascript"></script>
+    <link href="Scripts/ExtJS/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .Msg
+        {
+            border:1px solid blue;
+            color:Red;
+            font-size:12px;
+        }
+    </style>
+    <script language="javascript" type="text/javascript">
+
+        Ext.onReady(function () {
+
+            //Dom
+            var divInfo = Ext.get('div-info');
+            Ext.get('div-info').update('Message:test ok!');
+            Ext.get('div-info').addClass('Msg');
+
+            //Listener
+            Ext.get('btn').on('click', function () {
+                Ext.MessageBox.wait('正在向服务器提交请求...', 'Demo');
+                Ext.Ajax.request({
+                    url: '/Hello2/Test',
+                    method: 'POST',
+                    params: {
+                        Info: '服务器测试！'
+                    },
+                    success: function (r) {
+                        Ext.MessageBox.hide();
+                        var m = Ext.decode(r.responseText);
+                        Ext.MessageBox.show({
+                            title: 'Demo',
+                            msg: m.Message,
+                            icon: m.State == 0 ? Ext.MessageBox.INFO : Ext.MessageBox.ERROR,
+                            buttons: Ext.MessageBox.OK
+                        });
+                    },
+                    failure: function () {
+                        Ext.MessageBox.alert('Demo', '与服务器通信异常！');
+                    }
+                });
+            });
+
+            //工具函数
+            divInfo.update(Ext.util.Format.date(new Date(), 'Y-m-d'));
+            divInfo.update(Ext.util.Format.number(45645.1500, '￥00,000.00'));
+
+            //JSON
+            var obj = Ext.decode("{Name:'张三',Sex:'男',Age:18}");
+            divInfo.update(obj.Name);
+            divInfo.update(Ext.encode(obj));
+
+            //MessageBox
+            Ext.MessageBox.show({
+                title: 'Demo',
+                msg: '确认继续？',
+                icon: Ext.MessageBox.QUESTION,
+                buttons: Ext.MessageBox.YESNO,
+                fn: function (b) {
+                    if (b == 'yes')
+                        divInfo.update('继续操作');
+                    else
+                        divInfo.update('取消操作');
+                }
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<div id="div-info"></div>
+<button id="btn">test</button>
+</body>
+</html>

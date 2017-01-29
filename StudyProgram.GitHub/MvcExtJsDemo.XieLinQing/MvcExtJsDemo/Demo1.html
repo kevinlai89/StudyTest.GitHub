@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DemoWindow</title>
+    <script src="Scripts/ExtJS/adapter/ext/ext-base.js" type="text/javascript"></script>
+    <script src="Scripts/ExtJS/ext-all-debug.js" type="text/javascript"></script>
+    <script src="Scripts/ExtJS/Locale/ext-lang-zh_CN.js" type="text/javascript"></script>
+    <link href="Scripts/ExtJS/resources/css/ext-all.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+</body>
+</html>
+<script language="javascript" type="text/javascript">
+    var Demo = function () {
+        var store,
+            cm,
+            grid,
+            pEdit,
+            panel;
+
+        //store=============================================
+        store = new Ext.data.JsonStore({
+            idProperty: 'Id',
+            totalProperty: 'totalCount',
+            root: 'root',
+            fields: [
+            { name: 'Id', mapping: 'Id', type: 'int' },
+            { name: 'Name', mapping: 'Name', type: 'string' },
+            { name: 'Sex', mapping: 'Sex', type: 'int' },
+            { name: 'Age', mapping: 'Age', type: 'int' }
+        ]
+        });
+
+        var data = {
+            totalCount: 5,
+            root: [
+            { Id: 1, Name: '张三', Sex: 1, Age: 20 },
+            { Id: 2, Name: '李四', Sex: 0, Age: 18 },
+            { Id: 3, Name: '王五', Sex: 1, Age: 18 },
+            { Id: 4, Name: '王二麻子', Sex: 1, Age: 18 },
+            { Id: 5, Name: '刘国涛', Sex: 0, Age: 18 }
+        ]
+        };
+
+        store.loadData(data);
+
+        //Column=================================================
+        cm = new Ext.grid.ColumnModel({
+            defaults: {
+                align: 'center',
+                sortable: true
+            },
+            columns: [{
+                header: '标识',
+                dataIndex: 'Id',
+                width: 55
+            }, {
+                header: '姓名',
+                dataIndex: 'Name',
+                width: 85
+            }, {
+                header: '性别',
+                dataIndex: 'Sex',
+                width: 50
+            }, {
+                header: '年龄',
+                dataIndex: 'Age',
+                width: 50
+            }]
+        });
+
+        //GridPanel============================================
+        grid = new Ext.grid.GridPanel({
+            columnWidth: 0.7,
+            height:380,
+            stripeRows: true,
+            columnLines: true,
+            loadMask: true,
+            store: store,
+            cm: cm
+        });
+
+        //PanelEdit=============================================
+        panel = new Ext.Panel({
+            title: '人员编辑',
+            width:600,
+            farme: true,
+            border: true,
+            //plain: true,
+            layout: 'column',
+            bodyStyle: {
+                padding: '5px 5px 0 5px',
+                "background-color": 'transparent'
+            },
+            items: [grid, {
+                columnWidth: 0.3,
+                xtype: 'form',
+                labelWidth: 55,
+                defaults: {
+                    anchor: '95%'
+                },
+                items: [{
+                    xtype: 'textfield',
+                    fieldLabel: '姓名'
+                }, {
+                    xtype: 'combo',
+                    fieldLabel: '性别',
+                    triggerAction: 'all',
+                    disableKeyFilter:true,
+                    displayField: 'text',
+                    valueField: 'value',
+                    mode: 'local',
+                    store: new Ext.data.ArrayStore({
+                        fields: ['text', 'value'],
+                        data: [
+                            ['男', 0],
+                            ['女', 1]
+                        ]
+                    })
+                }, {
+                    xtype: 'textfield',
+                    fieldLabel: '年龄'
+                }]
+            }]
+        });
+        panel.render(Ext.getBody());
+    };
+
+    Ext.onReady(function () {
+        var d = new Demo();
+    });
+</script>

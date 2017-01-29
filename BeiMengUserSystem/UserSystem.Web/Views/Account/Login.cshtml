@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <script src="~/Content/Easyui/jquery.min.js"></script>
+    <script src="~/Content/Easyui/jquery.easyui.min.js"></script>
+    <script src="~/Content/Easyui/easyui-lang-zh_CN.js"></script>
+    <link href="~/Content/Easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/Content/EasyUI/themes/icon.css" rel="stylesheet" />
+    <script src="~/Scripts/Common/Login.js"></script>
+</head>
+<body>
+
+    <div id="w" class="easyui-window" title="登录窗口" data-options="iconCls:'icon-save',draggable:false, minimizable:false, maximizable:false,collapsible:false,closable:false " style="width:300px;height:200px;padding:10px;">
+        
+        <table>
+            <tr>
+                <td>用户名：</td><td><input id="name" type="text" value="admin" /></td>
+
+            </tr>
+            <tr>
+                <td>密　码：</td><td><input id="pwd" type="text" value="123321" /></td>
+
+            </tr>
+            <tr>
+                <td></td><td><br /><input type="button" onclick="Login();" value="登录" /></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td><br /><label id="showInfo" style="color:red" /></td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+     </body>
+</html>
